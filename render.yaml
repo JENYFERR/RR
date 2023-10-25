@@ -1,0 +1,18 @@
+services:
+  # A Docker web service
+  - type: web
+    name: web
+    env: python
+    startCommand: python bot.py
+    buildCommand: pip3 install -U -r requirements.txt
+    repo: https://github.com/JENYFERR/RR.git # optional
+    region: oregon # optional (defaults to oregon)
+    plan: free # optional (defaults to starter)
+    branch: main # optional (defaults to master)
+    numInstances: 1 # optional (defaults to 1)
+    healthCheckPath: /
+
+    env:
+      - key: PORT             # Environment variable for port (Example: 8080)
+        value: 8080
+        
