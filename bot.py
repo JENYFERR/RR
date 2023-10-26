@@ -1,5 +1,3 @@
-# iFilmsBotz
-
 import logging
 import logging.config
 
@@ -13,10 +11,13 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
 from database.users_chats_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
+from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL, PORT
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
+from Script import script 
+from datetime import date, datetime 
+import pytz
 
 class Bot(Client):
 
@@ -26,9 +27,9 @@ class Bot(Client):
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            workers=50,
+            workers=200,
             plugins={"root": "plugins"},
-            sleep_threshold=5,
+            sleep_threshold=10,
         )
 
     async def start(self):
@@ -44,11 +45,17 @@ class Bot(Client):
         self.username = '@' + me.username
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         logging.info(LOG_STR)
+        logging.info(script.LOGO)
+        tz = pytz.timezone('Asia/Kolkata')
+        today = date.today()
+        now = datetime.now(tz)
+        time = now.strftime("%H:%M:%S %p")
+        await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
 
     async def stop(self, *args):
         await super().stop()
         logging.info("Bot stopped. Bye.")
-    
+
     async def iter_messages(
         self,
         chat_id: Union[int, str],
