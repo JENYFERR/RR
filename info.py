@@ -43,6 +43,7 @@ LOG_CHANNEL = int(environ.get('LOG_CHANNEL',  -1001859057505))
 MYSUP = int(environ.get('MYSUP', -1001825172204))
 UPDATES = environ.get('UPDATES', 'RR_Studioo')
 SUPPORT = environ.get('SUPPORT', 'Movie_Bull')
+PORT = environ.get("PORT", "8080")
 
 # Editings
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
